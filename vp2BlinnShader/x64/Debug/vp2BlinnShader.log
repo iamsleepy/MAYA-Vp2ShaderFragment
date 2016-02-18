@@ -1,0 +1,14 @@
+﻿Build started 2016/1/26 15:16:07.
+     1>Project "C:\Program Files\Autodesk\Maya2016\devkit\plug-ins\vp2BlinnShader\vp2BlinnShader.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I. /I..\..\..\include /I..\..\..\..\include /Zi /nologo /W3 /WX- /Od /D _DEBUG /D WIN32 /D _WINDOWS /D _USRDLL /D NT_PLUGIN /D _HAS_ITERATOR_DEBUGGING=0 /D _SECURE_SCL=0 /D _SECURE_SCL_THROWS=0 /D _SECURE_SCL_DEPRECATE=0 /D _CRT_SECURE_NO_DEPRECATE /D TBB_USE_DEBUG=0 /D __TBB_LIB_NAME=tbb.lib /D Bits64_ /D _WINDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"x64\Debug\\" /Fd"x64\Debug\vp2BlinnShader.pdb" /Gd /TP /errorReport:prompt vp2BlinnShader.cpp
+         vp2BlinnShader.cpp
+     1>vp2BlinnShader.cpp(747): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"x64\Debug\vp2BlinnShader.mll" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\lib /LIBPATH:..\..\..\..\lib OpenMaya.lib OpenMayaUI.lib OpenMayaRender.lib Foundation.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"x64\Debug\vp2BlinnShader.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /NXCOMPAT /IMPLIB:"x64\Debug\vp2BlinnShader.lib" /MACHINE:X64 /export:initializePlugin /export:uninitializePlugin /DLL x64\Debug\vp2BlinnShader.obj
+         vp2BlinnShader.vcxproj -> C:\Program Files\Autodesk\Maya2016\devkit\plug-ins\vp2BlinnShader\x64\Debug\vp2BlinnShader.mll
+     1>Done Building Project "C:\Program Files\Autodesk\Maya2016\devkit\plug-ins\vp2BlinnShader\vp2BlinnShader.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.17
