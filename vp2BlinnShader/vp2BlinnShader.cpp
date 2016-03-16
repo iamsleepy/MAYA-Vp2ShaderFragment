@@ -292,7 +292,7 @@ public:
 		addGeometryRequirement(normalDesc);
 		addGeometryRequirement(textureDesc);
 
-        return MString("Autodesk Maya vp2 Blinn Shader Override");
+        return MString("Autodesk Maya vp2 Blinn Fragment Shader Override");
     }
 
 	// Access the node attributes and cache the values to update
@@ -318,15 +318,7 @@ public:
 			node.findPlug("colorG").getValue(fDiffuse[1]);
 			node.findPlug("colorB").getValue(fDiffuse[2]);
 			node.findPlug("transparency").getValue(fTransparency);
-			fDiffuse[3] = 1.0f - fTransparency;
-
-			/*for (int i = 1; i < 32 * 32; ++i)
-			{
-				fDiffuse[i * 4]     = fDiffuse[0];
-				fDiffuse[i * 4 + 1] = fDiffuse[1];
-				fDiffuse[i * 4 + 2] = fDiffuse[2];
-				fDiffuse[i * 4 + 3] = fDiffuse[3];
-			}*/
+			fDiffuse[3] = 1.0f - fTransparency;	
 					
 			node.findPlug("specularColorR").getValue(fSpecular[0]);
 			node.findPlug("specularColorG").getValue(fSpecular[1]);
@@ -470,11 +462,13 @@ public:
 		if (!shaderMgr)
 			return;
 
+		// Create texture fragment shader
 		initializeFragmentShaders();		
 		createCustomMappings();
 
 		if (!fColorShaderInstance)
 		{
+			// We only need to add texture for color shader instance used by Texture enabled viewport.
 			fColorShaderInstance = shaderMgr->getStockShader( MHWRender::MShaderManager::k3dBlinnShader );			
 			fColorShaderInstance->addInputFragment(fFragmentName, MString("output"), MString("diffuseColor"));
 		}
@@ -537,7 +531,7 @@ protected:
 
 	// Shader inputs values
 	float fTransparency;
-	float fDiffuse[4/* * 32 * 32*/];
+	float fDiffuse[4];
 	unsigned char fDiffuseByte[4];
 	float fSpecular[3];
 	float fShininess[3];
@@ -657,17 +651,19 @@ protected:
 			mappings.append(textureSamplerMapping);
 		}
 
+		// Update texture
 		void assignTexture(MHWRender::MTexture* texture, MHWRender::MTextureManager *textureManager)
 		{
 			MHWRender::MTextureAssignment textureAssignment;
 			textureAssignment.texture = texture;
 			
 			TRACE_API_CALLS("Update texture parameter");
-			fFragmentTextureShader->setParameter(fResolvedMapName, textureAssignment);
-
-			
+			fFragmentTextureShader->setParameter(fResolvedMapName, textureAssignment);			
 		}
 
+		// Update Texture fragment with latest parameter. 
+		// If there is no file specified, it will generate an 1x1 image based on diffuseColor parameter as default texture.
+		// Notice that, use MImage is faster than providing raw memory block.
 		void updateTextureShaderFragment()
 		{
 			TRACE_API_CALLS("Update texture");
@@ -767,7 +763,7 @@ protected:
 							if (fDefaultTexture)
 							{
 								cerr << fDiffuse[0] << " " << fDiffuse[1] << " " << fDiffuse[2] << " " << fDiffuse[3] << endl;
-								// It is cached by OGS, update to6 make sure texture has been updated.								
+								// It is cached by OGS, update to make sure texture has been updated.								
 								TRACE_API_CALLS("Accquired default texture");
 								assignTexture(fDefaultTexture, textureManager);
 							}							
